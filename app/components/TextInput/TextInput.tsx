@@ -7,7 +7,8 @@ import styles from './styles';
 
 interface IAppTextInput {
   icon: React.ComponentProps<typeof MaterialCommunityIcons>['name'];
-  width: string;
+  width?: string;
+  [x: string]: any;
 }
 
 const AppTextInput: FC<IAppTextInput> = ({ icon, width = '100%', ...otherProps }) => {

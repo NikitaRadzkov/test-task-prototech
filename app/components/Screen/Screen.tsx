@@ -4,8 +4,8 @@ import React, { FC } from 'react';
 import styles from './styles';
 
 interface IScreen {
-  children: JSX.Element;
-  style: Record<string, unknown>;
+  children: JSX.Element | JSX.Element[];
+  style?: Record<string, unknown>;
 }
 
 const Screen: FC<IScreen> = ({ children, style }) => {
