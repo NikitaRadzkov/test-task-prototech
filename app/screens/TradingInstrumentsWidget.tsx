@@ -1,4 +1,4 @@
-import { FlatList, NativeSyntheticEvent, StyleSheet, TextInputChangeEventData } from 'react-native';
+import { FlatList, NativeSyntheticEvent, StyleSheet, TextInputChangeEventData, View } from 'react-native';
 import React, { FC, useEffect, useState } from 'react';
 
 import colors from '../config/colors';
@@ -15,6 +15,7 @@ const TradingInstrumentsWidget: FC = () => {
   const [quotesList, setQuotesList] = useState<IQuote[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [quotesPerPage, setQuotesPerPage] = useState(10);
+  const [loading, setLoading] = useState(true);
 
   const indexOfLastQuote = currentPage * quotesPerPage;
   const indexOfFirstQuote = indexOfLastQuote - quotesPerPage;
@@ -31,6 +32,7 @@ const TradingInstrumentsWidget: FC = () => {
       .then((response) => response.json())
       .then((json) => {
         setQuotesList(json.quotesList);
+        setLoading(false);
       })
       .catch((error) => console.error(error));
   }, []);
@@ -42,14 +44,15 @@ const TradingInstrumentsWidget: FC = () => {
   return (
     <Screen style={styles.screen}>
       <TextInput icon="magnify" placeholder="Search Trading Instrument" value={inputValue} onChange={handleChange} />
+      <>{loading && <Text style={styles.loading}>Loading...</Text>}</>
       <FlatList
         data={currentQuotes}
         keyExtractor={(quote) => quote.symbol}
-        ListEmptyComponent={<Text style={styles.loading}>Loading...</Text>}
         ItemSeparatorComponent={ListItemSeparator}
         renderItem={({ item }) => <ListItem symbol={item.symbol} />}
       />
       <Pagination
+        loading={loading}
         totalQuotes={quotesList}
         currentPage={currentPage}
         quotesPerPage={quotesPerPage}
