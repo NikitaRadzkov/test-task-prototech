@@ -4,7 +4,7 @@ import { Text } from 'react-native';
 import defaultStyles from '../../config/styles';
 
 interface IAppText {
-  children: string;
+  children: string | number;
   style?: Record<string, unknown>;
 }
 
