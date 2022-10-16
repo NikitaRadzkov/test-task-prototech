@@ -1,4 +1,4 @@
-import { FlatList, NativeSyntheticEvent, StyleSheet, TextInputChangeEventData, View } from 'react-native';
+import { FlatList, NativeSyntheticEvent, StyleSheet, TextInputChangeEventData } from 'react-native';
 import React, { FC, useEffect, useState } from 'react';
 
 import colors from '../config/colors';
